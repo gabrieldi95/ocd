@@ -1,0 +1,1 @@
+Problema na soma: Tratar caso em que há um 'vai um' no final da soma
