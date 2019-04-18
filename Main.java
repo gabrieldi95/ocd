@@ -7,8 +7,8 @@ public class Main {
 
 
 
-        Binario b = new Binario(10);
-        Binario c = new Binario(30);
+        Binario b = new Binario(13);
+        Binario c = new Binario(3);
         print(b.valor);
         print(c.valor);
         int[] soma = c.soma(b);

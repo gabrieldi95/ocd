@@ -65,8 +65,6 @@ public class Binario {
         }
 
         res = new int[a.length];
-        print(a);
-        print(b);
 
         for (int i = res.length-1; i >= 0 ; i--) {
             if( (a[i] ^ b[i]) ^ ci){
@@ -77,9 +75,14 @@ public class Binario {
             }else ci = false;
         }
 
-        int[] sobra;
+        // Caso haja overflow
+        int[] sobra = new int[res.length+1];
         if(ci){
-            
+            sobra[0] = 1;
+            for (int i = 0; i < res.length; i++) {
+                sobra[i+1] = res[i];
+            }
+            return sobra;
         }
 
         return res;
@@ -112,6 +115,12 @@ public class Binario {
         for (int i = 0; i < arr.length; i++) {
             if(arr[i]) System.out.print(1);
             else System.out.print(0);
+        }
+        System.out.println("");
+    }
+    void printInt(int[] arr){
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i]);
         }
         System.out.println("");
     }
