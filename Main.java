@@ -13,6 +13,7 @@ public class Main {
         print(c.valor);
         int[] soma = c.soma(b);
         print(soma);
+        Binario.print(b.negativo());
 
 
 

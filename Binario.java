@@ -88,6 +88,21 @@ public class Binario {
         return res;
     }
 
+    boolean[] negativo(){
+        boolean[] neg = new boolean[this.valor.length];
+        for (int i = 0; i < neg.length; i++) {
+            neg[i] = !this.bool[i];
+        }
+        for (int i = neg.length-1; i >= 0 ; i--) {
+            if(neg[i]) neg[i] = false;
+            else{
+                neg[i] = true;
+                break;
+            }
+        }
+        return neg;
+    }
+
 
 
     boolean isBigger(boolean[] a, boolean[] b){
@@ -111,14 +126,14 @@ public class Binario {
         return arr;
     }
 
-    void print(boolean[] arr){
+    static void print(boolean[] arr){
         for (int i = 0; i < arr.length; i++) {
             if(arr[i]) System.out.print(1);
             else System.out.print(0);
         }
         System.out.println("");
     }
-    void printInt(int[] arr){
+    static void printInt(int[] arr){
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]);
         }
