@@ -1,5 +1,7 @@
 package com;
 
+import static com.Util.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -19,12 +21,12 @@ public class Main {
             System.out.println("Soma de " + 13 + "+" + i);
             int soma = 13 + i;
             System.out.println("Correto: " + soma + ", conta: " + bin2dec(Binario.soma(a.bool, b.bool, true)));
-            print(Binario.soma(a.bool, b.bool, true));
+            printInt(Binario.soma(a.bool, b.bool, true));
 
             System.out.println("Subtração de " + 13 + "-" + i);
             int sub = 13 - i;
             System.out.println("Correto: " + sub + ", conta: " + bin2dec(Binario.sub(a.bool, b.bool)));
-            print(Binario.sub(a.bool, b.bool));
+            printInt(Binario.sub(a.bool, b.bool));
             System.out.println("\n");
         }
     }
@@ -37,13 +39,6 @@ public class Main {
             }
         }
         return res;
-    }
-
-    public static void print(int[] arr){
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]);
-        }
-        System.out.println("");
     }
 
 }

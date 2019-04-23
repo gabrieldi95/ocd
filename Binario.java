@@ -1,5 +1,7 @@
 package com;
 
+import static com.Util.*;
+
 public class Binario {
 
     int[] valor;
@@ -10,14 +12,18 @@ public class Binario {
         this.bool = bin2bool(this.valor);
     }
 
-
-
+    /**
+     * dec2bin
+     * Transforma um número decimal em binário
+     * @param dec Núemro inteiro a ser convertido
+     * @return Array de inteiros que representa um número binário, no menor tamanho possível
+     */
     static int[] dec2bin(int dec){
 
         int bitSize = 1;
         double maxSize = 1;
 
-        // Descobre a quantidade de bits
+        // Descobre a quantidade de bits para criar o array
         while(maxSize < dec){
             maxSize = maxSize + Math.pow(2, bitSize);
             bitSize++;
@@ -26,6 +32,7 @@ public class Binario {
         int[] a = new int[bitSize];
 
         int index = a.length-1;
+        // Popula o array
         while(dec > 0 && index >= 0){
             a[index] = dec % 2;
             dec = dec / 2;
@@ -35,7 +42,11 @@ public class Binario {
         return a;
     }
 
-
+    /**
+     * bin2bool
+     * @param num Array de inteiros que representa um número binário
+     * @return Array de booleano que representa um número binário (para facilitar nas operações)
+     */
     static boolean[] bin2bool(int[] num){
         boolean[] bool = new boolean[num.length];
         for (int i = 0; i < num.length; i++) {
@@ -45,25 +56,28 @@ public class Binario {
         return bool;
     }
 
-
-
-
+    /**
+     * soma
+     * @param a
+     * @param b
+     * @param over Flag que determina se a função ignora ou não o overflow. Se 'true', não ignora. (No complemento de 2 é necessário ignorar o overflow)
+     * @return Array de inteiros que representa a soma de a+b
+     */
     static int[] soma(boolean[] a, boolean[] b, boolean over) {
+        // Carry in inicializado como 1
         boolean ci = false;
 
-        int[] res;
-
-        //boolean[] a;
-        //boolean[] b;
-
+        // Caso 'a' e 'b' possuam tamanhos diferentes (de array), aumenta o tamnho do menor até ficar do mesmo tamanho
         if(isBigger(a, b)){
             b = normaliza(a, b);
         }else {
             a = normaliza(b, a);
         }
 
-        res = new int[a.length];
+        // Inicializa array da resposta de a+b
+        int[] res = new int[a.length];
 
+        // Algoritmo da soma
         for (int i = res.length-1; i >= 0 ; i--) {
             if( (a[i] ^ b[i]) ^ ci){
                 res[i] = 1;
@@ -73,7 +87,7 @@ public class Binario {
             }else ci = false;
         }
 
-        // Caso haja overflow
+        // Caso haja overflow, aumenta o tamanho do array em 1
         int[] sobra = new int[res.length+1];
         if(ci && over){
             sobra[0] = 1;
@@ -86,7 +100,15 @@ public class Binario {
         return res;
     }
 
+    /**
+     * sub
+     * @param a
+     * @param b
+     * @return a-b
+     */
     static int[] sub(boolean[] a, boolean[] b){
+
+        // Normaliza o tamanho
         if(isBigger(a, b)){
             b = normaliza(a, b);
         }else {
@@ -96,56 +118,6 @@ public class Binario {
         return soma(a, negativo(b), false);
     }
 
-    static boolean[] negativo(boolean[] num){
-        boolean[] neg = new boolean[num.length];
-        for (int i = 0; i < neg.length; i++) {
-            neg[i] = !num[i];
-        }
-        for (int i = neg.length-1; i >= 0 ; i--) {
-            if(neg[i]) neg[i] = false;
-            else{
-                neg[i] = true;
-                break;
-            }
-        }
-        return neg;
-    }
 
-
-
-    static boolean isBigger(boolean[] a, boolean[] b){
-        boolean arr[];
-        if(a.length > b.length) return true;
-        else return false;
-    }
-
-
-
-    static boolean[] normaliza(boolean[] a, boolean[] b){
-        //Aumenta o tamanho de b para o tamanho de a
-
-        boolean[] arr = new boolean[a.length];
-        int index = arr.length-1;
-
-        for (int i = b.length-1; i >= 0 ; i--) {
-            arr[index] = b[i];
-            index--;
-        }
-        return arr;
-    }
-
-    static void print(boolean[] arr){
-        for (int i = 0; i < arr.length; i++) {
-            if(arr[i]) System.out.print(1);
-            else System.out.print(0);
-        }
-        System.out.println("");
-    }
-    static void printInt(int[] arr){
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print(arr[i]);
-        }
-        System.out.println("");
-    }
 
 }
