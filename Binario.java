@@ -48,20 +48,18 @@ public class Binario {
 
 
 
-    int[] soma(Binario num) {
+    static int[] soma(boolean[] a, boolean[] b, boolean over) {
         boolean ci = false;
 
         int[] res;
 
-        boolean[] a;
-        boolean[] b;
+        //boolean[] a;
+        //boolean[] b;
 
-        if(isBigger(this.bool, num.bool)){
-            b = normaliza(this.bool, num.bool);
-            a = this.bool;
+        if(isBigger(a, b)){
+            b = normaliza(a, b);
         }else {
-            a = normaliza(num.bool, this.bool);
-            b = num.bool;
+            a = normaliza(b, a);
         }
 
         res = new int[a.length];
@@ -77,7 +75,7 @@ public class Binario {
 
         // Caso haja overflow
         int[] sobra = new int[res.length+1];
-        if(ci){
+        if(ci && over){
             sobra[0] = 1;
             for (int i = 0; i < res.length; i++) {
                 sobra[i+1] = res[i];
@@ -88,10 +86,20 @@ public class Binario {
         return res;
     }
 
-    boolean[] negativo(){
-        boolean[] neg = new boolean[this.valor.length];
+    static int[] sub(boolean[] a, boolean[] b){
+        if(isBigger(a, b)){
+            b = normaliza(a, b);
+        }else {
+            a = normaliza(b, a);
+        }
+
+        return soma(a, negativo(b), false);
+    }
+
+    static boolean[] negativo(boolean[] num){
+        boolean[] neg = new boolean[num.length];
         for (int i = 0; i < neg.length; i++) {
-            neg[i] = !this.bool[i];
+            neg[i] = !num[i];
         }
         for (int i = neg.length-1; i >= 0 ; i--) {
             if(neg[i]) neg[i] = false;
@@ -105,7 +113,7 @@ public class Binario {
 
 
 
-    boolean isBigger(boolean[] a, boolean[] b){
+    static boolean isBigger(boolean[] a, boolean[] b){
         boolean arr[];
         if(a.length > b.length) return true;
         else return false;
@@ -113,7 +121,7 @@ public class Binario {
 
 
 
-    boolean[] normaliza(boolean[] a, boolean[] b){
+    static boolean[] normaliza(boolean[] a, boolean[] b){
         //Aumenta o tamanho de b para o tamanho de a
 
         boolean[] arr = new boolean[a.length];
