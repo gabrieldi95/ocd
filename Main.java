@@ -6,10 +6,12 @@ public class Main {
 
     public static void main(String[] args) {
 
-        testes(13, 17);
-        //Binario a = new Binario(13);
-        //Binario b = new Binario(7);
+        //testes(13, 17);
+        Binario a = new Binario(10);
+        Binario b = new Binario(5);
         //print(Binario.sub(a.bool, b.bool));
+        print(Binario.booth(a.bool, b.bool));
+
 
 
     }

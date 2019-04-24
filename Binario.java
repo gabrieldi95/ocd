@@ -56,6 +56,8 @@ public class Binario {
         return bool;
     }
 
+
+
     /**
      * soma
      * @param a
@@ -100,6 +102,8 @@ public class Binario {
         return res;
     }
 
+
+
     /**
      * sub
      * @param a
@@ -118,6 +122,49 @@ public class Binario {
         return soma(a, negativo(b), false);
     }
 
+
+    static boolean[] booth(boolean[] x, boolean[] y){
+        if(isBigger(x, y)){
+            y = normaliza(x, y);
+        }else {
+            x = normaliza(y, x);
+        }
+
+        boolean[] a = new boolean[x.length+1];
+        boolean[] b = new boolean[x.length+1];
+
+        for(int i = 1; i<a.length; i++){
+            a[i] = x[i-1];
+            b[i] = y[i-1];
+        }
+
+        boolean[] res = new boolean[a.length];
+        boolean Q = false;
+
+
+        for (int i = 0; i < a.length; i++) {
+            if (b[b.length - 1] == Q) {
+                Q = b[b.length - 1];
+                b = shiftR(b);
+                b[0] = res[res.length - 1];
+                res = shiftR(res);
+            } else if (!Q) {
+                res = bin2bool(sub(res, a));
+                Q = b[b.length - 1];
+                b = shiftR(b);
+                b[0] = res[res.length - 1];
+                res = shiftR(res);
+            } else {
+                res = bin2bool(soma(res, a, false));
+                Q = b[b.length - 1];
+                b = shiftR(b);
+                b[0] = res[res.length - 1];
+                res = shiftR(res);
+            }
+        }
+
+        return concat(res, b);
+    }
 
 
 }

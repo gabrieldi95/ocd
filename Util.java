@@ -80,4 +80,24 @@ public class Util {
         return arr;
     }
 
+
+    static boolean[] shiftR(boolean[] num){
+        boolean[] res = new boolean[num.length];
+        for(int i = res.length-1; i > 0; i--){
+            res[i] = num[i-1];
+        }
+        res[0] = num[0];
+        return res;
+    }
+
+    static boolean[] concat(boolean[] a, boolean[] b){
+        boolean[] res = new boolean[a.length + b.length];
+        for(int i = 0; i < a.length; i++){
+            res[i] = a[i];
+            res[i+a.length] = b[i];
+        }
+
+        return res;
+    }
+
 }
