@@ -15,31 +15,76 @@ public class Binario {
     /**
      * dec2bin
      * Transforma um número decimal em binário
-     * @param dec Núemro inteiro a ser convertido
+     * @param dec Número inteiro a ser convertido
      * @return Array de inteiros que representa um número binário, no menor tamanho possível
      */
-    static int[] dec2bin(int dec){
+    static int[] dec2bin(int dec) {
 
-        int bitSize = 1;
-        double maxSize = 1;
+        // O mínimo de bits necessário será dois: um para o sinal-magnitude do número e outro para o mínimo de representação numérica 2^0
+        
+        int bitSize = 2; 
+        double maxSize = 1; // Não retirar até confirmar se outras funções usam o atributo
 
-        // Descobre a quantidade de bits para criar o array
-        while(maxSize < dec){
-            maxSize = maxSize + Math.pow(2, bitSize);
-            bitSize++;
-        }
-
+        // Descobre a quantidade de bits para criar o array representando o numero
+        // Utiliza o inteiro do logaritmo do número decimal na base 2 (inversa da exponencial) 
+        // Essa conta retorna um número de bits mais confiável evitando erros de sobrecarga (overflows) de números negativos 
+        // PS: NÃO TESTADO O UNDERFLOW - TESTE PARA PONTO FLUTUANTE E NUMEROS COM CASAS DECIMAIS
+        bitSize = bitSize + (int)((Math.log(Math.abs(dec)))/(Math.log(2))); 
         int[] a = new int[bitSize];
 
+
         int index = a.length-1;
+        int auxNum = dec;
+
         // Popula o array
-        while(dec > 0 && index >= 0){
-            a[index] = dec % 2;
-            dec = dec / 2;
+
+        while((Math.abs(auxNum) > 0) && index >= 0) {
+            a[index] = Math.abs(auxNum) % 2;
+            auxNum = auxNum / 2;
             index--;
         }
 
+        // Se o número for negativo ele roda a função complemento de 2 que normaliza o número para o padrão de sinal-e-magnitude
+        if (dec < 0) {
+            a = complemento2(a);
+        }
+
         return a;
+    }
+    
+    /**
+     * complemento1
+     * Retorna o complemento de 1 de um número binário
+     * @param num Array de inteiros que representa um número binário
+     * @return Array de inteiros que representa um número binário, em complemento de 1, no menor tamanho possível
+     */
+    static int[] complemento1(int[] num) {
+
+        int[] a = new int[num.length];
+
+        for (int i = num.length - 1; i >= 0 ; i--) {
+            if (num[i] == 0)  a[i] = 1;
+            else { a[i] = 0; }
+        }
+
+        return a;
+    }
+
+     /**
+     * complemento2
+     * Retorna o complemento de 2 de um número binário
+     * @param num Array de inteiros que representa um número binário sem complemento de 1
+     * @return Array de inteiros que representa um número binário, em complemento de 2, no menor tamanho possível
+     */
+    static int[] complemento2(int[] num) {
+
+        int [] complemento1 = complemento1(num);
+        boolean [] complemento1_boolean = bin2bool(complemento1);
+        int [] add = dec2bin(1);
+        boolean [] add_boolean = bin2bool(add);
+        int [] complemento2 = soma(complemento1_boolean,add_boolean, true);
+
+        return complemento2;
     }
 
     /**
