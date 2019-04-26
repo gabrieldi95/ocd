@@ -32,7 +32,7 @@ public class Util {
      * @param num Array de booleano que representa um número binário
      * @return O complemento de 2 da entrada
      */
-    static boolean[] negativo(boolean[] num){
+    static boolean[] negativo (boolean[] num){
         boolean[] neg = new boolean[num.length];
         for (int i = 0; i < neg.length; i++) {
             neg[i] = !num[i];
