@@ -6,11 +6,13 @@ public class Main {
 
     public static void main(String[] args) {
         // Rotina de Testes
-        //testes(5, -2); // Positivo e Negativo - mínimo 4 bits - OK
-         testes(1, -2); // Positivo e Negativo - AXIOMA mínimo
-        /* testes(13, 20); // Positivo e Positivo
-        testes(-15, -17); // Negativo e Negativo
-        testes(-20, 35); // Negativo e Positivo */
+        // testes(5, -2); // Positivo e Negativo - mínimo 4 bits - SOMA OK - Subtração Errada
+        // testes(1, -2); // Positivo e Negativo - AXIOMA mínimo - SOMA OK - Subtração Errada
+        // Pendente Subtração e Underflow
+        //testes(13, 20); // Positivo e Positivo - SOMA OK 
+        // testes(-15, -17); // Negativo e Negativo - SOMA OK
+        testes(-15, -18); // Negativo e Negativo Overflow - SOMA ERRADA 
+        // testes(-20, 35); // Negativo e Positivo  - SOMA OK
     }
     
     public static void testes(int x, int y) {
