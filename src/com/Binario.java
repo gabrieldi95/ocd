@@ -20,28 +20,24 @@ public class Binario {
      */
     static int[] dec2bin(int dec) {
 
-        // O mínimo de bits necessário será dois: um para o sinal-magnitude do número e outro para o mínimo de representação numérica 2^0
-        
-        int bitSize = 1; 
-
-        // Descobre a quantidade de bits para criar o array representando o numero
+        // Descobre a quantidade de casas de bits para criar um array representando o numero
         // Utiliza o inteiro do logaritmo do número decimal na base 2 (inversa da exponencial) 
-        // Essa conta retorna um número de bits mais confiável evitando erros de sobrecarga (overflows) de números negativos 
+        int bitSize = (int) Math.ceil(Math.log((Math.abs(dec))/(Math.log(2))));
+
+        // Adiciona-se duas unidades para manter o sinal-e-magnitude além de um complemento de 2
+        int[] a = new int[bitSize + 2];
+
         // PS: NÃO TESTADO O UNDERFLOW - TESTE PARA PONTO FLUTUANTE E NUMEROS COM CASAS DECIMAIS
-        double teste = Math.ceil(Math.log((Math.abs(dec))/(Math.log(2))));
-        bitSize = bitSize + (int) teste; 
-        int[] a = new int[bitSize];
-
-
+       
         int index = a.length-1;
-        int auxNum = dec;
 
-        // Popula o array
+        int modulo_do_Decimal = Math.abs(dec);
 
-        while((Math.abs(auxNum) > 0) && index >= 0) {
-            a[index] = Math.abs(auxNum) % 2;
-            auxNum = auxNum / 2;
-            index--;
+        // Popula os elementos em complemento de 2
+        while ((modulo_do_Decimal > 0) && (index >= 0)) { 
+            a[index] = modulo_do_Decimal % 2;
+            modulo_do_Decimal = modulo_do_Decimal / 2;
+            index--; 
         }
 
         // Se o número for negativo ele roda a função complemento de 2 que normaliza o número para o padrão de sinal-e-magnitude
@@ -59,9 +55,9 @@ public class Binario {
      * @return Array de inteiros que representa um número binário, em complemento de 1, no menor tamanho possível
      */
     static int[] complemento1(int[] num) {
+        int[] a = new int[num.length];       
 
-        int[] a = new int[num.length];
-
+        // Realiza a negação de todos os elementos
         for (int i = num.length - 1; i >= 0 ; i--) {
             if (num[i] == 0)  a[i] = 1;
             else { a[i] = 0; }
@@ -82,7 +78,7 @@ public class Binario {
         boolean [] complemento1_boolean = bin2bool(complemento1);
         int [] add = dec2bin(1);
         boolean [] add_boolean = bin2bool(add);
-        int [] complemento2 = soma(complemento1_boolean,add_boolean, true);
+        int [] complemento2 = soma(complemento1_boolean,add_boolean, false);
 
         return complemento2;
     }

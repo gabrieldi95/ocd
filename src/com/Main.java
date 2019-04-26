@@ -6,7 +6,7 @@ public class Main {
 
     public static void main(String[] args) {
         // Rotina de Testes
-        testes(1, -1); // Positivo e Negativo - mínimo (axioma)
+        testes(5, -3); // Positivo e Negativo - mínimo (axioma)
         testes(13, 20); // Positivo e Positivo
         testes(-15, -17); // Negativo e Negativo
         testes(-20, 35); // Negativo e Positivo
@@ -20,14 +20,14 @@ public class Main {
         System.out.println("*********SOMA*********");
         System.out.println("X: " + x + " Y: " + y);
         int soma = x + y;
-        System.out.println("Esperado: " + soma + ", Conta: " + bin2dec(Binario.soma(a.bool, b.bool, false)));
+        System.out.println("Esperado: " + soma + ", Conta: " + bin2dec(Binario.soma(a.bool, b.bool, true)));
         System.out.println("Saída dos Binários:");
-        System.out.print("A: ");
+        System.out.print("X: ");
         Util.print(a.bool);
-        System.out.print("B: ");
+        System.out.print("Y: ");
         Util.print(b.bool);
         System.out.print("R: ");
-        printInt(Binario.soma(a.bool, b.bool, false));
+        printInt(Binario.soma(a.bool, b.bool, true));
         System.out.println("**********************" + "\n");
        
 
