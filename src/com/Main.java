@@ -6,10 +6,11 @@ public class Main {
 
     public static void main(String[] args) {
         // Rotina de Testes
-        testes(5, -3); // Positivo e Negativo - mínimo (axioma)
-        testes(13, 20); // Positivo e Positivo
+        //testes(5, -2); // Positivo e Negativo - mínimo 4 bits - OK
+         testes(1, -2); // Positivo e Negativo - AXIOMA mínimo
+        /* testes(13, 20); // Positivo e Positivo
         testes(-15, -17); // Negativo e Negativo
-        testes(-20, 35); // Negativo e Positivo
+        testes(-20, 35); // Negativo e Positivo */
     }
     
     public static void testes(int x, int y) {
@@ -20,14 +21,15 @@ public class Main {
         System.out.println("*********SOMA*********");
         System.out.println("X: " + x + " Y: " + y);
         int soma = x + y;
-        System.out.println("Esperado: " + soma + ", Conta: " + bin2dec(Binario.soma(a.bool, b.bool, true)));
         System.out.println("Saída dos Binários:");
         System.out.print("X: ");
-        Util.print(a.bool);
+        Util.printInt(a.valor);
         System.out.print("Y: ");
-        Util.print(b.bool);
+        Util.printInt(b.valor);
         System.out.print("R: ");
-        printInt(Binario.soma(a.bool, b.bool, true));
+        printInt(Binario.soma(a.bool, b.bool, false));
+        System.out.println("Conta: " + bin2dec(Binario.soma(a.bool, b.bool, false)));
+        System.out.println("Esperado: " + soma);        
         System.out.println("**********************" + "\n");
        
 
@@ -38,9 +40,9 @@ public class Main {
         System.out.println("Esperado: " + sub + ", Conta: " + bin2dec(Binario.sub(a.bool, b.bool)));
         System.out.println("Saída dos Binários:");
         System.out.print("A: ");
-        Util.print(a.bool);
+        Util.printInt(a.valor);
         System.out.print("B: ");
-        Util.print(b.bool);
+        Util.printInt(b.valor);
         System.out.print("R: ");
         printInt(Binario.sub(a.bool, b.bool));
         System.out.println("**********************" + "\n");      

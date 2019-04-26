@@ -30,10 +30,9 @@ public class Binario {
         // PS: NÃO TESTADO O UNDERFLOW - TESTE PARA PONTO FLUTUANTE E NUMEROS COM CASAS DECIMAIS
        
         int index = a.length-1;
-
         int modulo_do_Decimal = Math.abs(dec);
 
-        // Popula os elementos em complemento de 2
+        // Popula os elementos em módulo, caso negativo será rodado o complemento de 2 no número positivo
         while ((modulo_do_Decimal > 0) && (index >= 0)) { 
             a[index] = modulo_do_Decimal % 2;
             modulo_do_Decimal = modulo_do_Decimal / 2;
