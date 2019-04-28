@@ -68,7 +68,7 @@ public class Binario {
      /**
      * complemento2
      * Retorna o complemento de 2 de um número binário
-     * @param num Array de inteiros que representa um número binário sem complemento de 1
+     * @param num Array de inteiros que representa um número binário sem complemento
      * @return Array de inteiros que representa um número binário, em complemento de 2, no menor tamanho possível
      */
     static int[] complemento2(int[] num) {
@@ -105,7 +105,7 @@ public class Binario {
      */
     static int[] soma(boolean[] a, boolean[] b, boolean over) {
         // Carry in inicializado como 1
-        boolean ci = false;
+        boolean carryIn = false;
 
         // Caso 'a' e 'b' possuam tamanhos diferentes (de array), aumenta o tamnho do menor até ficar do mesmo tamanho
         if(isBigger(a, b)){
@@ -119,17 +119,19 @@ public class Binario {
 
         // Algoritmo da soma
         for (int i = res.length-1; i >= 0 ; i--) {
-            if( (a[i] ^ b[i]) ^ ci){
+            if( (a[i] ^ b[i]) ^ carryIn){
                 res[i] = 1;
-            }else res[i] = 0;
-            if( (!a[i] && (ci && b[i])) || (a[i] && (ci || b[i])) ){
-                ci = true;
-            } else ci = false;
+            } else res[i] = 0;
+
+            if( (!a[i] && (carryIn && b[i])) || (a[i] && (carryIn || b[i])) ){
+                carryIn = true;
+            } else carryIn = false;
+
         }
 
         // Caso haja overflow, aumenta o tamanho do array em 1
         int[] sobra = new int[res.length+1];
-        if(ci && over){
+        if(carryIn && over){
             sobra[0] = 1;
             for (int i = 0; i < res.length; i++) {
                 sobra[i+1] = res[i];
@@ -154,8 +156,7 @@ public class Binario {
         }else {
             a = normaliza(b, a);
         }
-
-        return soma(a, b, false);
+        return soma(a, b, true);
     }
 
     static boolean[] booth(boolean[] x, boolean[] y){

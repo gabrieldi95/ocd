@@ -55,7 +55,6 @@ public class Util {
      * @return True se a>b, false se a<=b
      */
     static boolean isBigger(boolean[] a, boolean[] b){
-        boolean arr[];
         if(a.length > b.length) return true;
         else return false;
     }
