@@ -1,3 +1,4 @@
 bin/com/Binario.class
 bin/com/Main.class
 bin/com/Util.class
+*.class
