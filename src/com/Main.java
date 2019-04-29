@@ -1,3 +1,9 @@
+/*
+    EP I - OCD - 2019/1S
+    Danilo Nunes Davanso NUSP 7650926 T.04
+    Gabriel Di Pardi Arruda NUSP 8921610 T.04
+*/
+
 package com;
 
 import static com.Util.*;
@@ -7,11 +13,11 @@ public class Main {
     public static void main(String[] args) {
         // Rotina de Testes
         // testes(5, -2); // Positivo e Negativo - mínimo 4 bits - SOMA OK - Subtração Errada
-        //testes(-2, 1); // Positivo e Negativo - AXIOMA mínimo - SOMA OK - Subtração Errada
+        testes(-2, 1); // Positivo e Negativo - AXIOMA mínimo - SOMA OK - Subtração Errada
         // Pendente Subtração e Underflow
         //testes(13, 20); // Positivo e Positivo - SOMA OK 
         testes(-15, -17); // Negativo e Negativo - SOMA OK
-        //testes(-15, -18); // Negativo e Negativo Overflow - SOMA ERRADA 
+        testes(-15, -18); // Negativo e Negativo Overflow - SOMA ERRADA 
         // testes(-20, 35); // Negativo e Positivo  - SOMA OK
     }
     
@@ -42,12 +48,16 @@ public class Main {
         System.out.print("A: ");
         Util.printInt(a.valor);
         System.out.print("B: ");
-        Binario c = new Binario(17);
+        Util.printInt(b.valor);
+        System.out.print("C: ");
+        Binario c = new Binario(-y);
         Util.printInt(c.valor);
         System.out.print("R: ");
-        
+        printInt(Binario.sub(a.bool, b.bool));
+        System.out.print("C2: ");
         printInt(Binario.sub(a.bool, c.bool));
         System.out.println("Conta: " + bin2dec(Binario.sub(a.bool, b.bool)));
+        System.out.println("Conta C2: " + bin2dec(Binario.sub(a.bool, c.bool)));
         System.out.println("Esperado: " + sub);
         System.out.println("**********************" + "\n");      
 

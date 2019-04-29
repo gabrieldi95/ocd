@@ -1,3 +1,9 @@
+/*
+    EP I - OCD - 2019/1S
+    Danilo Nunes Davanso NUSP 7650926 T.04
+    Gabriel Di Pardi Arruda NUSP 8921610 T.04
+*/
+
 package com;
 
 public class Util {

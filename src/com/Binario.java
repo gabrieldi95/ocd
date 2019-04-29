@@ -1,3 +1,9 @@
+/*
+    EP I - OCD - 2019/1S
+    Danilo Nunes Davanso NUSP 7650926 T.04
+    Gabriel Di Pardi Arruda NUSP 8921610 T.04
+*/
+
 package com;
 
 import static com.Util.*;
@@ -156,7 +162,7 @@ public class Binario {
         }else {
             a = normaliza(b, a);
         }
-        return soma(a, b, true);
+        return soma(a, b, false);
     }
 
     static boolean[] booth(boolean[] x, boolean[] y){
