@@ -30,15 +30,15 @@ public class Binario {
         // Utiliza o inteiro do logaritmo do número decimal na base 2 (inversa da exponencial) 
         int bitSize = (int) Math.ceil(Math.log((Math.abs(dec))/(Math.log(2))));
 
-        // Adiciona-se duas unidades para manter o sinal-e-magnitude além de um complemento de 2
+        // Adiciona-se duas unidades para manter o sinal-e-magnitude e uma para evitar overflows
         int[] a = new int[bitSize + 2];
 
         // PS: NÃO TESTADO O UNDERFLOW - TESTE PARA PONTO FLUTUANTE E NUMEROS COM CASAS DECIMAIS
        
         int index = a.length-1;
         int modulo_do_Decimal = Math.abs(dec);
-
-        // Popula os elementos em módulo, caso negativo será rodado o complemento de 2 no número positivo
+        
+        // Popula os elementos
         while ((modulo_do_Decimal > 0) && (index >= 0)) { 
             a[index] = modulo_do_Decimal % 2;
             modulo_do_Decimal = modulo_do_Decimal / 2;
@@ -159,7 +159,7 @@ public class Binario {
         // Normaliza o tamanho
         if(isBigger(a, b)){
             b = normaliza(a, b);
-        }else {
+        } else {
             a = normaliza(b, a);
         }
         return soma(a, b, false);

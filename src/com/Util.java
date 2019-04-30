@@ -30,7 +30,7 @@ public class Util {
         for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]);
         }
-        System.out.println("");
+        System.out.print("\n");
     }
 
     /**
@@ -77,8 +77,20 @@ public class Util {
 
         boolean[] arr = new boolean[a.length];
         int index = arr.length-1;
+        boolean sinal_magnitude = false;
 
-        for (int i = b.length-1; i >= 0 ; i--) {
+        // Trata da extensão binária de números negativos
+        if (b[0] == true) {
+            sinal_magnitude = true;
+        }
+        int n = arr.length - b.length;
+            do {
+                arr[n] = sinal_magnitude;
+                n--;
+            } while (n > 0);
+        
+        // População normal dos elementos significativos sem a extensão binária (positiva/negativa)
+        for (int i = b.length-1; i >= 0 ; i--) { 
             arr[index] = b[i];
             index--;
         }

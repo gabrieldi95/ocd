@@ -12,13 +12,15 @@ public class Main {
 
     public static void main(String[] args) {
         // Rotina de Testes
+       testes(1,9);
         // testes(5, -2); // Positivo e Negativo - mínimo 4 bits - SOMA OK - Subtração Errada
+        testes(-1, 2); // Positivo e Negativo - AXIOMA mínimo - SOMA OK - Subtração Errada
         testes(-2, 1); // Positivo e Negativo - AXIOMA mínimo - SOMA OK - Subtração Errada
         // Pendente Subtração e Underflow
         //testes(13, 20); // Positivo e Positivo - SOMA OK 
-        testes(-15, -17); // Negativo e Negativo - SOMA OK
-        testes(-15, -18); // Negativo e Negativo Overflow - SOMA ERRADA 
-        // testes(-20, 35); // Negativo e Positivo  - SOMA OK
+       /* testes(-15, -17); // Negativo e Negativo - SOMA OK
+        testes(-15, -18); // Negativo e Negativo Overflow - SOMA ERRADA */
+        // testes(-20, 35); // Negativo e Positivo  - SOMA OK*/
     }
     
     public static void testes(int x, int y) {
@@ -26,7 +28,7 @@ public class Main {
         Binario b = new Binario(y);
 
         // Soma
-       /* System.out.println("*********SOMA*********");
+        System.out.println("*********SOMA*********");
         System.out.println("X: " + x + " Y: " + y);
         int soma = x + y;
         System.out.println("Saída dos Binários:");
@@ -38,7 +40,7 @@ public class Main {
         printInt(Binario.soma(a.bool, b.bool, true));
         System.out.println("Conta: " + bin2dec(Binario.soma(a.bool, b.bool, true)));
         System.out.println("Esperado: " + soma);        
-        System.out.println("**********************" + "\n"); */
+        System.out.println("**********************" + "\n");
     
         //Subtração
         System.out.println("*********SUBTRACAO*********");
@@ -49,15 +51,9 @@ public class Main {
         Util.printInt(a.valor);
         System.out.print("B: ");
         Util.printInt(b.valor);
-        System.out.print("C: ");
-        Binario c = new Binario(-y);
-        Util.printInt(c.valor);
         System.out.print("R: ");
         printInt(Binario.sub(a.bool, b.bool));
-        System.out.print("C2: ");
-        printInt(Binario.sub(a.bool, c.bool));
-        System.out.println("Conta: " + bin2dec(Binario.sub(a.bool, b.bool)));
-        System.out.println("Conta C2: " + bin2dec(Binario.sub(a.bool, c.bool)));
+        System.out.println("R Decimal: " + bin2dec(Binario.sub(a.bool, b.bool)));
         System.out.println("Esperado: " + sub);
         System.out.println("**********************" + "\n");      
 
@@ -75,7 +71,7 @@ public class Main {
         // Ativa a flag que é numero negativo para após o complemento de 2 mudar o sinal
         if (bin[0] == 1) {
             negativo = true;
-            bin = Binario.complemento2(bin);
+            //bin = Binario.complemento2(bin);
         }  
 
         // Cálculo do valor decimal do número
