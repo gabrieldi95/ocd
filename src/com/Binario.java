@@ -138,7 +138,7 @@ public class Binario {
         boolean underflow = false;
         // Caso haja overflow pelo CarryIn, aumenta o tamanho do array em 1
         int[] sobra = new int[res.length];
-        if(carryIn) {
+        if (carryIn) {
             if ((b[0] == true) && (a[0] == true)) { // 
                 sobra[0] = 1; 
                 res[1] = 0;
@@ -146,6 +146,7 @@ public class Binario {
             for (int i = res.length - 1; i > 0 ; i--) {
                 sobra[i] = res[i];
             }
+            sobra[sobra.length -1] = 1;
             return sobra;
         }
         

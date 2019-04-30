@@ -16,3 +16,6 @@
 
 # Site para conferência de operações
 https://es.planetcalc.com/747/
+
+#Ponto Flutuante
+http://deinfo.uepg.br/~ljsenger/2006/orgearq/org5.pdf
