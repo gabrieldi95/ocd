@@ -12,16 +12,17 @@ public class Main {
 
     public static void main(String[] args) {
         // Rotina de Testes Básica
-        testes(-1, 2); // Positivo e Negativo - SOMA SUB OK - BIN2DEC NOT OK
-        testes(2, 1); // Positivo e Positivo -  - SOMA SUB BIN2DEC - OK
-        testes(-2, -1); // Positivo e Negativo - SOMA SUB OK - BIN2DEC NOT OK
-        testes(-15, -18); // Negativo e Negativo Overflow - SOMA SUB BIN2DEC - OK
+        /* testes(-1, 2); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testes(2, 1); // Positivo e Positivo -  SOMA SUB BIN2DEC - OK
+        testes(-2, -1); // Positivo e Negativo - SOMA SUB BIN2DEC - OK*/
+        testes(-15, -18); // Negativo e Negativo - SOMA SUB BIN2DEC - OK Overflow - 
         
         // Pendente Underflow
         // Testes extras
-        //testes(13, 20); // Positivo e Positivo 
+        // testes(13, 20); // Positivo e Positivo 
         // testes(-15, -17); // Negativo e Negativo 
         // testes(-20, 35); // Negativo e Positivo 
+        // testes(23, -12);
     }
     
     public static void testes(int x, int y) {
@@ -38,9 +39,9 @@ public class Main {
         System.out.print("Y: ");
         Util.printInt(b.valor);
         System.out.print("R: ");
-        printInt(Binario.soma(a.bool, b.bool, true));
-        System.out.println("Conta: " + bin2dec(Binario.soma(a.bool, b.bool, true)));
-        System.out.println("Esperado: " + soma);        
+        printInt(Binario.soma(a.bool, b.bool));
+        System.out.println("Esperado em R: " + soma);  
+        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.soma(a.bool, b.bool)));     
         System.out.println("**********************" + "\n");
     
         //Subtração
@@ -55,9 +56,8 @@ public class Main {
         System.out.print("R: ");
         Binario b2 = new Binario(-y);
         printInt(Binario.sub(a.bool, b2.bool));
-
-        System.out.println("R Decimal: " + bin2dec(Binario.sub(a.bool, b2.bool)));
-        System.out.println("Esperado: " + sub);
+        System.out.println("Esperado em R: " + sub);
+        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.sub(a.bool, b2.bool)));    
         System.out.println("**********************" + "\n");      
 
         //Multiplicação
@@ -70,21 +70,23 @@ public class Main {
         int res = 0;
         boolean negativo = false;
 
-        // Se o número for negativo faz o complemento de 2
-        // Ativa a flag que é numero negativo para após o complemento de 2 mudar o sinal
-        /*if (bin[0] == 1) {
+        // Representação de um número negativo após inserção de um binário em complemento de 2 
+        // O número negativo faz o complemento de 2 novamente para desfazer a representação sem sinal-e-magnitude e voltar para o padrão binário clássico
+        // Ativa a flag que é numero negativo para no retorno voltar o número com sinal trocado após o complemento de 2 mudar o sinal
+        if (bin[0] == 1) {
             negativo = true;
-            //bin = Binario.complemento2(bin);
-        }  */
+            bin = Binario.complemento2(bin);
+        }  
 
-        // Cálculo do valor decimal do número
+        // Cálculo do valor decimal do número positivo
         for (int i = bin.length - 1; i > 0; i--) {
             if (bin[i] == 1) {      
                 res += Math.pow(2, (double) bin.length - i - 1);
             } 
         }
-        //if (negativo = true) {return -res;}
-        return res;
+        if (negativo == true) {
+            return -res;
+        } else return res;
     }
 
 }

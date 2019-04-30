@@ -83,7 +83,7 @@ public class Binario {
         boolean [] complemento1_boolean = bin2bool(complemento1);
         int [] add = dec2bin(1);
         boolean [] add_boolean = bin2bool(add);
-        int [] complemento2 = soma(complemento1_boolean,add_boolean, false);
+        int [] complemento2 = soma(complemento1_boolean, add_boolean);
 
         return complemento2;
     }
@@ -109,7 +109,7 @@ public class Binario {
      * @param over Flag que determina se a função ignora ou não o overflow. Se 'true', não ignora. (No complemento de 2 é necessário ignorar o overflow)
      * @return Array de inteiros que representa a soma de a+b
      */
-    static int[] soma(boolean[] a, boolean[] b, boolean over) {
+    static int[] soma(boolean[] a, boolean[] b) {
         // Carry in inicializado como 1
         boolean carryIn = false;
 
@@ -135,9 +135,11 @@ public class Binario {
 
         }
 
+        boolean flag_over_under_flow = false;
         // Caso haja overflow, aumenta o tamanho do array em 1
         int[] sobra = new int[res.length];
-        if(carryIn || over){
+        if(carryIn || flag_over_under_flow) {
+
             for (int i = 0; i < res.length; i++) {
                 sobra[i] = res[i];
             }
@@ -154,14 +156,7 @@ public class Binario {
      * @return a-b
      */
     static int[] sub(boolean[] a, boolean[] b){
-
-        // Normaliza o tamanho
-        if(isBigger(a, b)){
-            b = normaliza(a, b);
-        } else {
-            a = normaliza(b, a);
-        }
-        return soma(a, b, true);
+        return soma(a, b);
     }
 
     static boolean[] booth(boolean[] x, boolean[] y){
@@ -196,7 +191,7 @@ public class Binario {
                 b[0] = res[res.length - 1];
                 res = shiftR(res);
             } else {
-                res = bin2bool(soma(res, a, false));
+                res = bin2bool(soma(res, a));
                 Q = b[b.length - 1];
                 b = shiftR(b);
                 b[0] = res[res.length - 1];
