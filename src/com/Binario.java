@@ -37,7 +37,7 @@ public class Binario {
        
         int index = a.length-1;
         int modulo_do_Decimal = Math.abs(dec);
-        
+
         // Popula os elementos
         while ((modulo_do_Decimal > 0) && (index >= 0)) { 
             a[index] = modulo_do_Decimal % 2;
@@ -116,12 +116,12 @@ public class Binario {
         // Caso 'a' e 'b' possuam tamanhos diferentes (de array), aumenta o tamnho do menor até ficar do mesmo tamanho
         if(isBigger(a, b)){
             b = normaliza(a, b);
-        } else {
+        } else if (isBigger(b, a)) {
             a = normaliza(b, a);
         }
 
         // Inicializa array da resposta de a+b
-        int[] res = new int[a.length];
+        int[] res = new int[(a.length + b.length) / 2];
 
         // Algoritmo da soma
         for (int i = res.length-1; i >= 0 ; i--) {
@@ -136,15 +136,14 @@ public class Binario {
         }
 
         // Caso haja overflow, aumenta o tamanho do array em 1
-        int[] sobra = new int[res.length+1];
-        if(carryIn && over){
-            sobra[0] = 1;
+        int[] sobra = new int[res.length];
+        if(carryIn || over){
             for (int i = 0; i < res.length; i++) {
-                sobra[i+1] = res[i];
+                sobra[i] = res[i];
             }
             return sobra;
         }
-
+        
         return res;
     }
 
@@ -162,7 +161,7 @@ public class Binario {
         } else {
             a = normaliza(b, a);
         }
-        return soma(a, b, false);
+        return soma(a, b, true);
     }
 
     static boolean[] booth(boolean[] x, boolean[] y){

@@ -83,11 +83,11 @@ public class Util {
         if (b[0] == true) {
             sinal_magnitude = true;
         }
-        int n = arr.length - b.length;
+       int n = arr.length - b.length;
             do {
                 arr[n] = sinal_magnitude;
                 n--;
-            } while (n > 0);
+            } while (n >= 0);
         
         // População normal dos elementos significativos sem a extensão binária (positiva/negativa)
         for (int i = b.length-1; i >= 0 ; i--) { 

@@ -11,16 +11,17 @@ import static com.Util.*;
 public class Main {
 
     public static void main(String[] args) {
-        // Rotina de Testes
-       testes(1,9);
-        // testes(5, -2); // Positivo e Negativo - mínimo 4 bits - SOMA OK - Subtração Errada
-        testes(-1, 2); // Positivo e Negativo - AXIOMA mínimo - SOMA OK - Subtração Errada
-        testes(-2, 1); // Positivo e Negativo - AXIOMA mínimo - SOMA OK - Subtração Errada
-        // Pendente Subtração e Underflow
-        //testes(13, 20); // Positivo e Positivo - SOMA OK 
-       /* testes(-15, -17); // Negativo e Negativo - SOMA OK
-        testes(-15, -18); // Negativo e Negativo Overflow - SOMA ERRADA */
-        // testes(-20, 35); // Negativo e Positivo  - SOMA OK*/
+        // Rotina de Testes Básica
+        testes(-1, 2); // Positivo e Negativo - SOMA SUB OK - BIN2DEC NOT OK
+        testes(2, 1); // Positivo e Positivo -  - SOMA SUB BIN2DEC - OK
+        testes(-2, -1); // Positivo e Negativo - SOMA SUB OK - BIN2DEC NOT OK
+        testes(-15, -18); // Negativo e Negativo Overflow - SOMA SUB BIN2DEC - OK
+        
+        // Pendente Underflow
+        // Testes extras
+        //testes(13, 20); // Positivo e Positivo 
+        // testes(-15, -17); // Negativo e Negativo 
+        // testes(-20, 35); // Negativo e Positivo 
     }
     
     public static void testes(int x, int y) {
@@ -52,8 +53,10 @@ public class Main {
         System.out.print("B: ");
         Util.printInt(b.valor);
         System.out.print("R: ");
-        printInt(Binario.sub(a.bool, b.bool));
-        System.out.println("R Decimal: " + bin2dec(Binario.sub(a.bool, b.bool)));
+        Binario b2 = new Binario(-y);
+        printInt(Binario.sub(a.bool, b2.bool));
+
+        System.out.println("R Decimal: " + bin2dec(Binario.sub(a.bool, b2.bool)));
         System.out.println("Esperado: " + sub);
         System.out.println("**********************" + "\n");      
 
@@ -69,18 +72,18 @@ public class Main {
 
         // Se o número for negativo faz o complemento de 2
         // Ativa a flag que é numero negativo para após o complemento de 2 mudar o sinal
-        if (bin[0] == 1) {
+        /*if (bin[0] == 1) {
             negativo = true;
             //bin = Binario.complemento2(bin);
-        }  
+        }  */
 
         // Cálculo do valor decimal do número
-        for (int i = bin.length - 1; i >= 0; i--) {
+        for (int i = bin.length - 1; i > 0; i--) {
             if (bin[i] == 1) {      
                 res += Math.pow(2, (double) bin.length - i - 1);
             } 
         }
-        if (negativo = true) {return -res;}
+        //if (negativo = true) {return -res;}
         return res;
     }
 

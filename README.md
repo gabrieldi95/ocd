@@ -11,7 +11,6 @@
 
 
 ## Para fazer
-* Ajustar exibição da soma de números positivos (interferência de estratégia de carry)
 * Divisão
 * Teste de Underflow assim que todas operações forem finalizadas, debuggar ajuste de overflow com novo cálculo do bitSize
 
