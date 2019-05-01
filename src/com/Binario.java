@@ -135,18 +135,15 @@ public class Binario {
 
         }
 
-        boolean underflow = false;
         // Caso haja overflow pelo CarryIn, aumenta o tamanho do array em 1
-        int[] sobra = new int[res.length];
+        int[] sobra = new int[res.length + 1];
         if (carryIn) {
             if ((b[0] == true) && (a[0] == true)) { // 
                 sobra[0] = 1; 
-                res[1] = 0;
             } 
-            for (int i = res.length - 1; i > 0 ; i--) {
-                sobra[i] = res[i];
+            for (int i = res.length; i > 0 ; i--) {
+                sobra[i] = res[i-1];
             }
-            sobra[sobra.length -1] = 1;
             return sobra;
         }
         
@@ -160,7 +157,16 @@ public class Binario {
      * @return a-b
      */
     static int[] sub(boolean[] a, boolean[] b){
-        return soma(a, b);
+        // Roda complemento de 2 do número em boolean
+        int[] boolean_b = new int[b.length];
+
+        for(int i = b.length - 1; i >= 0; i--) {
+            if (b[i] == true) { boolean_b[i] = 1; }
+            else { boolean_b[i] =  0;}
+        }
+        boolean_b = complemento2(boolean_b);
+        
+        return soma(a, bin2bool(boolean_b));
     }
 
     static boolean[] booth(boolean[] x, boolean[] y){

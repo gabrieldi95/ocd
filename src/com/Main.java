@@ -12,10 +12,10 @@ public class Main {
 
     public static void main(String[] args) {
         // Rotina de Testes Básica
-        /* testes(-1, 2); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testes(-1, 2); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
         testes(2, 1); // Positivo e Positivo -  SOMA SUB BIN2DEC - OK
-        testes(-2, -1); // Positivo e Negativo - SOMA SUB BIN2DEC - OK*/
-        testes(-15, -18); // Negativo e Negativo - SOMA SUB BIN2DEC - OK Overflow - 
+        testes(-2, -1); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testes(-15, -18); // Negativo e Negativo - SOMA SUB BIN2DEC - OK 
         
         // Pendente Underflow
         // Testes extras
@@ -42,7 +42,7 @@ public class Main {
         printInt(Binario.soma(a.bool, b.bool));
         System.out.println("Esperado em R: " + soma);  
         System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.soma(a.bool, b.bool)));     
-        System.out.println("**********************" + "\n");
+        System.out.println("**********************" + "\n"); 
     
         //Subtração
         System.out.println("*********SUBTRACAO*********");
@@ -54,10 +54,9 @@ public class Main {
         System.out.print("B: ");
         Util.printInt(b.valor);
         System.out.print("R: ");
-        Binario b2 = new Binario(-y);
-        printInt(Binario.sub(a.bool, b2.bool));
+        printInt(Binario.sub(a.bool, b.bool));
         System.out.println("Esperado em R: " + sub);
-        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.sub(a.bool, b2.bool)));    
+        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.sub(a.bool, b.bool)));    
         System.out.println("**********************" + "\n");      
 
         //Multiplicação
