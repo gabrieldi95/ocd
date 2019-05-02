@@ -11,11 +11,17 @@ import static com.Util.*;
 public class Main {
 
     public static void main(String[] args) {
-        // Rotina de Testes Básica
+        // Rotina de Testes Básica 
+        /* // Ponto Fixo
         testes(-1, 2); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
         testes(2, 1); // Positivo e Positivo -  SOMA SUB BIN2DEC - OK
         testes(-2, -1); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
-        testes(-15, -18); // Negativo e Negativo - SOMA SUB BIN2DEC - OK 
+        testes(-15, -18); // Negativo e Negativo - SOMA SUB BIN2DEC - OK */
+         // Ponto Flutuante
+        testesD(-1.5, 2.3); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testesD(2.2, 1.9); // Positivo e Positivo -  SOMA SUB BIN2DEC - OK
+        testesD(-2.6, -1.5); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testesD(-15.1, -18.2); // Negativo e Negativo - SOMA SUB BIN2DEC - OK 
         
         // Pendente Underflow
         // Testes extras
@@ -43,7 +49,7 @@ public class Main {
         System.out.println("Esperado em R: " + soma);  
         System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.soma(a.bool, b.bool)));     
         System.out.println("**********************" + "\n"); 
-    
+     /*
         //Subtração
         System.out.println("*********SUBTRACAO*********");
         System.out.println("X: " + x + " Y: " + y);
@@ -57,12 +63,42 @@ public class Main {
         printInt(Binario.sub(a.bool, b.bool));
         System.out.println("Esperado em R: " + sub);
         System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.sub(a.bool, b.bool)));    
-        System.out.println("**********************" + "\n");      
+        System.out.println("**********************" + "\n");     
 
         //Multiplicação
+        System.out.println("*********MULTIPLICACAO*********");
+        System.out.println("X: " + x + " Y: " + y);
+        int mult = x * y;
+        System.out.println("Saída dos Binários:");
+        System.out.print("A: ");
+        Util.printInt(a.valor);
+        System.out.print("B: ");
+        Util.printInt(b.valor);
+        System.out.print("R: ");
+        Util.print(Binario.booth(a.bool, b.bool));  */
 
         //Divisão
 
+    }
+
+    public static void testesD(double x, double y) {
+        Binario a = new Binario(x);
+        Binario b = new Binario(y);
+
+        // Soma
+        System.out.println("*********SOMA*********");
+        System.out.println("X: " + x + " Y: " + y);
+        double soma = x + y;
+        System.out.println("Saída dos Binários:");
+        System.out.print("X: ");
+        Util.printInt(a.valor);
+        System.out.print("Y: ");
+        Util.printInt(b.valor);
+        System.out.print("R: ");
+        printInt(Binario.soma(a.bool, b.bool));
+        System.out.println("Esperado em R: " + soma);  
+        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.soma(a.bool, b.bool)));     
+        System.out.println("**********************" + "\n"); 
     }
 
     public static int bin2dec(int[] bin) {

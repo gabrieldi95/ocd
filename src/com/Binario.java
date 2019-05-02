@@ -18,9 +18,14 @@ public class Binario {
         this.bool = bin2bool(this.valor);
     }
 
+    Binario(double valor) {
+        this.valor = dec2bin_double(valor);
+        this.bool = bin2bool(this.valor);
+    }
+
     /**
      * dec2bin
-     * Transforma um número decimal em binário
+     * Transforma um número decimal de ponto fixo em binário
      * @param dec Número inteiro a ser convertido
      * @return Array de inteiros que representa um número binário, no menor tamanho possível
      */
@@ -32,9 +37,7 @@ public class Binario {
 
         // Adiciona-se duas unidades para manter o sinal-e-magnitude e uma para evitar overflows
         int[] a = new int[bitSize + 2];
-
-        // PS: NÃO TESTADO O UNDERFLOW - TESTE PARA PONTO FLUTUANTE E NUMEROS COM CASAS DECIMAIS
-       
+ 
         int index = a.length-1;
         int modulo_do_Decimal = Math.abs(dec);
 
@@ -52,6 +55,38 @@ public class Binario {
 
         return a;
     }
+
+    /**
+     * dec2bin Transforma um número decimal de ponto flutuante em binário
+     * 
+     * @param valor2 Número inteiro a ser convertido
+     * @return Array de inteiros que representa um número binário, no menor tamanho
+     *         possível
+     */
+    static int[] dec2bin_double(double dec_double) {
+
+        int[] a = new int[32];
+
+        int index = a.length - 1;
+        
+        double modulo_do_Decimal = Math.abs(dec_double);
+
+        // Popula os elementos
+        while ((modulo_do_Decimal > 0) && (index >= 0)) {
+            a[index] = (int) (modulo_do_Decimal % 2);
+            modulo_do_Decimal = modulo_do_Decimal / 2;
+            index--;
+        }
+
+        // Se o número for negativo ele roda a função complemento de 2 que normaliza o
+        // número para o padrão de sinal-e-magnitude
+        if (dec_double < 0) {
+            a = complemento2(a);
+        }
+
+        return a;
+    }
+    
     
     /**
      * complemento1
@@ -70,7 +105,7 @@ public class Binario {
 
         return a;
     }
-
+    
      /**
      * complemento2
      * Retorna o complemento de 2 de um número binário
@@ -172,7 +207,7 @@ public class Binario {
     static boolean[] booth(boolean[] x, boolean[] y){
         if(isBigger(x, y)){
             y = normaliza(x, y);
-        }else {
+        } else {
             x = normaliza(y, x);
         }
 
