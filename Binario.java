@@ -1,3 +1,9 @@
+/*
+    EP I - OCD - 2019/1S
+    Danilo Nunes Davanso NUSP 7650926 T.04
+    Gabriel Di Pardi Arruda NUSP 8921610 T.04
+*/
+
 package com;
 
 import static com.Util.*;
@@ -12,36 +18,34 @@ public class Binario {
         this.bool = bin2bool(this.valor);
     }
 
+    Binario(double valor) {
+        this.valor = dec2bin_double(valor);
+        this.bool = bin2bool(this.valor);
+    }
+
     /**
      * dec2bin
-     * Transforma um número decimal em binário
+     * Transforma um número decimal de ponto fixo em binário
      * @param dec Número inteiro a ser convertido
      * @return Array de inteiros que representa um número binário, no menor tamanho possível
      */
     static int[] dec2bin(int dec) {
 
-        // O mínimo de bits necessário será dois: um para o sinal-magnitude do número e outro para o mínimo de representação numérica 2^0
-        
-        int bitSize = 2; 
-        double maxSize = 1; // Não retirar até confirmar se outras funções usam o atributo
-
-        // Descobre a quantidade de bits para criar o array representando o numero
+        // Descobre a quantidade de casas de bits para criar um array representando o numero
         // Utiliza o inteiro do logaritmo do número decimal na base 2 (inversa da exponencial) 
-        // Essa conta retorna um número de bits mais confiável evitando erros de sobrecarga (overflows) de números negativos 
-        // PS: NÃO TESTADO O UNDERFLOW - TESTE PARA PONTO FLUTUANTE E NUMEROS COM CASAS DECIMAIS
-        bitSize = bitSize + (int)((Math.log(Math.abs(dec)))/(Math.log(2))); 
-        int[] a = new int[bitSize];
+        int bitSize = (int) Math.ceil(Math.log((Math.abs(dec))/(Math.log(2))));
 
-
+        // Adiciona-se duas unidades para manter o sinal-e-magnitude e uma para evitar overflows
+        int[] a = new int[bitSize + 2];
+ 
         int index = a.length-1;
-        int auxNum = dec;
+        int modulo_do_Decimal = Math.abs(dec);
 
-        // Popula o array
-
-        while((Math.abs(auxNum) > 0) && index >= 0) {
-            a[index] = Math.abs(auxNum) % 2;
-            auxNum = auxNum / 2;
-            index--;
+        // Popula os elementos
+        while ((modulo_do_Decimal > 0) && (index >= 0)) { 
+            a[index] = modulo_do_Decimal % 2;
+            modulo_do_Decimal = modulo_do_Decimal / 2;
+            index--; 
         }
 
         // Se o número for negativo ele roda a função complemento de 2 que normaliza o número para o padrão de sinal-e-magnitude
@@ -51,6 +55,38 @@ public class Binario {
 
         return a;
     }
+
+    /**
+     * dec2bin Transforma um número decimal de ponto flutuante em binário
+     * 
+     * @param valor2 Número inteiro a ser convertido
+     * @return Array de inteiros que representa um número binário, no menor tamanho
+     *         possível
+     */
+    static int[] dec2bin_double(double dec_double) {
+
+        int[] a = new int[32];
+
+        int index = a.length - 1;
+        
+        double modulo_do_Decimal = Math.abs(dec_double);
+
+        // Popula os elementos
+        while ((modulo_do_Decimal > 0) && (index >= 0)) {
+            a[index] = (int) (modulo_do_Decimal % 2);
+            modulo_do_Decimal = modulo_do_Decimal / 2;
+            index--;
+        }
+
+        // Se o número for negativo ele roda a função complemento de 2 que normaliza o
+        // número para o padrão de sinal-e-magnitude
+        if (dec_double < 0) {
+            a = complemento2(a);
+        }
+
+        return a;
+    }
+    
     
     /**
      * complemento1
@@ -59,9 +95,9 @@ public class Binario {
      * @return Array de inteiros que representa um número binário, em complemento de 1, no menor tamanho possível
      */
     static int[] complemento1(int[] num) {
+        int[] a = new int[num.length];       
 
-        int[] a = new int[num.length];
-
+        // Realiza a negação de todos os elementos
         for (int i = num.length - 1; i >= 0 ; i--) {
             if (num[i] == 0)  a[i] = 1;
             else { a[i] = 0; }
@@ -69,11 +105,11 @@ public class Binario {
 
         return a;
     }
-
+    
      /**
      * complemento2
      * Retorna o complemento de 2 de um número binário
-     * @param num Array de inteiros que representa um número binário sem complemento de 1
+     * @param num Array de inteiros que representa um número binário sem complemento
      * @return Array de inteiros que representa um número binário, em complemento de 2, no menor tamanho possível
      */
     static int[] complemento2(int[] num) {
@@ -82,7 +118,7 @@ public class Binario {
         boolean [] complemento1_boolean = bin2bool(complemento1);
         int [] add = dec2bin(1);
         boolean [] add_boolean = bin2bool(add);
-        int [] complemento2 = soma(complemento1_boolean,add_boolean, true);
+        int [] complemento2 = soma(complemento1_boolean, add_boolean);
 
         return complemento2;
     }
@@ -101,8 +137,6 @@ public class Binario {
         return bool;
     }
 
-
-
     /**
      * soma
      * @param a
@@ -110,44 +144,46 @@ public class Binario {
      * @param over Flag que determina se a função ignora ou não o overflow. Se 'true', não ignora. (No complemento de 2 é necessário ignorar o overflow)
      * @return Array de inteiros que representa a soma de a+b
      */
-    static int[] soma(boolean[] a, boolean[] b, boolean over) {
+    static int[] soma(boolean[] a, boolean[] b) {
         // Carry in inicializado como 1
-        boolean ci = false;
+        boolean carryIn = false;
 
         // Caso 'a' e 'b' possuam tamanhos diferentes (de array), aumenta o tamnho do menor até ficar do mesmo tamanho
         if(isBigger(a, b)){
             b = normaliza(a, b);
-        }else {
+        } else if (isBigger(b, a)) {
             a = normaliza(b, a);
         }
 
         // Inicializa array da resposta de a+b
-        int[] res = new int[a.length];
+        int[] res = new int[(a.length + b.length) / 2];
 
         // Algoritmo da soma
         for (int i = res.length-1; i >= 0 ; i--) {
-            if( (a[i] ^ b[i]) ^ ci){
+            if( (a[i] ^ b[i]) ^ carryIn){
                 res[i] = 1;
-            }else res[i] = 0;
-            if( (!a[i] && (ci && b[i])) || (a[i] && (ci || b[i])) ){
-                ci = true;
-            }else ci = false;
+            } else res[i] = 0;
+
+            if( (!a[i] && (carryIn && b[i])) || (a[i] && (carryIn || b[i])) ){
+                carryIn = true;
+            } else carryIn = false;
+
         }
 
-        // Caso haja overflow, aumenta o tamanho do array em 1
-        int[] sobra = new int[res.length+1];
-        if(ci && over){
-            sobra[0] = 1;
-            for (int i = 0; i < res.length; i++) {
-                sobra[i+1] = res[i];
+        // Caso haja overflow pelo CarryIn, aumenta o tamanho do array em 1
+        int[] sobra = new int[res.length + 1];
+        if (carryIn) {
+            if ((b[0] == true) && (a[0] == true)) { // 
+                sobra[0] = 1; 
+            } 
+            for (int i = res.length; i > 0 ; i--) {
+                sobra[i] = res[i-1];
             }
             return sobra;
         }
-
+        
         return res;
     }
-
-
 
     /**
      * sub
@@ -156,32 +192,32 @@ public class Binario {
      * @return a-b
      */
     static int[] sub(boolean[] a, boolean[] b){
+        // Roda complemento de 2 do número em boolean
+        int[] boolean_b = new int[b.length];
 
-        // Normaliza o tamanho
+        for(int i = b.length - 1; i >= 0; i--) {
+            if (b[i] == true) { boolean_b[i] = 1; }
+            else { boolean_b[i] =  0;}
+        }
+        boolean_b = complemento2(boolean_b);
+        
+        return soma(a, bin2bool(boolean_b));
+    }
+
+    static boolean[] booth(boolean[] a, boolean[] b){
         if(isBigger(a, b)){
             b = normaliza(a, b);
-        }else {
+        } else {
             a = normaliza(b, a);
         }
 
-        return soma(a, negativo(b), false);
-    }
-
-
-    static boolean[] booth(boolean[] x, boolean[] y){
-        if(isBigger(x, y)){
-            y = normaliza(x, y);
-        }else {
-            x = normaliza(y, x);
-        }
-
-        boolean[] a = new boolean[x.length+1];
+        /*boolean[] a = new boolean[x.length+1];
         boolean[] b = new boolean[x.length+1];
 
         for(int i = 1; i<a.length; i++){
             a[i] = x[i-1];
             b[i] = y[i-1];
-        }
+        }*/
 
         boolean[] res = new boolean[a.length];
         boolean Q = false;
@@ -200,7 +236,7 @@ public class Binario {
                 b[0] = res[res.length - 1];
                 res = shiftR(res);
             } else {
-                res = bin2bool(soma(res, a, false));
+                res = bin2bool(soma(res, a));
                 Q = b[b.length - 1];
                 b = shiftR(b);
                 b[0] = res[res.length - 1];

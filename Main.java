@@ -1,3 +1,9 @@
+/*
+    EP I - OCD - 2019/1S
+    Danilo Nunes Davanso NUSP 7650926 T.04
+    Gabriel Di Pardi Arruda NUSP 8921610 T.04
+*/
+
 package com;
 
 import static com.Util.*;
@@ -5,47 +11,117 @@ import static com.Util.*;
 public class Main {
 
     public static void main(String[] args) {
-
-        // testes(13, 17);
-        /*
-         * Binario a = new Binario(10); Binario b = new Binario(5);
-         */
-        // print(Binario.sub(a.bool, b.bool));
-        // print(Binario.booth(a.bool, b.bool));
-
-        testes(1, -1);
-        testes(13, 20);
-        testes(-15, -17);
-        testes(-20, 35);
+        // Rotina de Testes Básica 
+        /// Ponto Fixo
+        testes(-1, 2); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testes(2, 1); // Positivo e Positivo -  SOMA SUB BIN2DEC - OK
+        testes(-2, 1); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testes(-15, -18); // Negativo e Negativo - SOMA SUB BIN2DEC - OK
+         // Ponto Flutuante
+        /*testesD(-1.5, 2.3); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testesD(2.2, 1.9); // Positivo e Positivo -  SOMA SUB BIN2DEC - OK
+        testesD(-2.6, -1.5); // Positivo e Negativo - SOMA SUB BIN2DEC - OK
+        testesD(-15.1, -18.2); // Negativo e Negativo - SOMA SUB BIN2DEC - OK */
+        
+        // Pendente Underflow
+        // Testes extras
+        // testes(13, 20); // Positivo e Positivo 
+        // testes(-15, -17); // Negativo e Negativo 
+        // testes(-20, 35); // Negativo e Positivo 
+        // testes(23, -12);
     }
-
+    
     public static void testes(int x, int y) {
         Binario a = new Binario(x);
         Binario b = new Binario(y);
 
         // Soma
-        System.out.println("Soma de X:" + x + " + Y:" + y);
+        System.out.println("*********SOMA*********");
+        System.out.println("X: " + x + " Y: " + y);
         int soma = x + y;
-        System.out.println("Correto: " + soma + ", conta: " + bin2dec(Binario.soma(a.bool, b.bool, true)));
-        printInt(Binario.soma(a.bool, b.bool, true));
-
+        System.out.println("Saída dos Binários:");
+        System.out.print("X: ");
+        Util.printInt(a.valor);
+        System.out.print("Y: ");
+        Util.printInt(b.valor);
+        System.out.print("R: ");
+        printInt(Binario.soma(a.bool, b.bool));
+        System.out.println("Esperado em R: " + soma);  
+        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.soma(a.bool, b.bool)));     
+        System.out.println("**********************" + "\n"); 
+     /*
         //Subtração
-        System.out.println("Subtração de X:" + x + " + Y:" + y);
+        System.out.println("*********SUBTRACAO*********");
+        System.out.println("X: " + x + " Y: " + y);
         int sub = x - y;
-        System.out.println("Correto: " + sub + ", conta: " + bin2dec(Binario.sub(a.bool, b.bool)));
+        System.out.println("Saída dos Binários:");
+        System.out.print("A: ");
+        Util.printInt(a.valor);
+        System.out.print("B: ");
+        Util.printInt(b.valor);
+        System.out.print("R: ");
         printInt(Binario.sub(a.bool, b.bool));
-        System.out.println("\n");
+        System.out.println("Esperado em R: " + sub);
+        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.sub(a.bool, b.bool)));    
+        System.out.println("**********************" + "\n");     
+        */
+        //Multiplicação
+        System.out.println("*********MULTIPLICACAO*********");
+        System.out.println("X: " + x + " Y: " + y);
+        int mult = x * y;
+        System.out.println("Saída dos Binários:");
+        System.out.print("A: ");
+        Util.printInt(a.valor);
+        System.out.print("B: ");
+        Util.printInt(b.valor);
+        System.out.print("R: ");
+        Util.print(Binario.booth(a.bool, b.bool));
 
+        //Divisão
+
+    }
+
+    public static void testesD(double x, double y) {
+        Binario a = new Binario(x);
+        Binario b = new Binario(y);
+
+        // Soma
+        System.out.println("*********SOMA*********");
+        System.out.println("X: " + x + " Y: " + y);
+        double soma = x + y;
+        System.out.println("Saída dos Binários:");
+        System.out.print("X: ");
+        Util.printInt(a.valor);
+        System.out.print("Y: ");
+        Util.printInt(b.valor);
+        System.out.print("R: ");
+        printInt(Binario.soma(a.bool, b.bool));
+        System.out.println("Esperado em R: " + soma);  
+        System.out.println("Conversão Bin2Dec de R: " + bin2dec(Binario.soma(a.bool, b.bool)));     
+        System.out.println("**********************" + "\n"); 
     }
 
     public static int bin2dec(int[] bin) {
         int res = 0;
-        for (int i = bin.length - 1; i >= 0; i--) {
-            if (bin[i] == 1) {
+        boolean negativo = false;
+
+        // Representação de um número negativo após inserção de um binário em complemento de 2 
+        // O número negativo faz o complemento de 2 novamente para desfazer a representação sem sinal-e-magnitude e voltar para o padrão binário clássico
+        // Ativa a flag que é numero negativo para no retorno voltar o número com sinal trocado após o complemento de 2 mudar o sinal
+        if (bin[0] == 1) {
+            negativo = true;
+            bin = Binario.complemento2(bin);
+        }  
+
+        // Cálculo do valor decimal do número positivo
+        for (int i = bin.length - 1; i > 0; i--) {
+            if (bin[i] == 1) {      
                 res += Math.pow(2, (double) bin.length - i - 1);
-            }
+            } 
         }
-        return res;
+        if (negativo == true) {
+            return -res;
+        } else return res;
     }
 
 }
